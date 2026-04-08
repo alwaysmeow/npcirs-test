@@ -1,0 +1,60 @@
+DROP DATABASE IF EXISTS npcirs_test;
+CREATE DATABASE npcirs_test;
+\connect npcirs_test
+
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS movies;
+
+-- Main table: movies
+CREATE TABLE movies (
+    id            SERIAL PRIMARY KEY,
+    title         VARCHAR(255)  NOT NULL,
+    genre         VARCHAR(100)  NOT NULL,
+    duration      INTEGER       NOT NULL CHECK (duration > 0),
+    rating        NUMERIC(3,1)  NOT NULL CHECK (rating >= 0 AND rating <= 10),
+    release_date  DATE          NOT NULL
+);
+
+-- Child table: sessions (FK -> movies.id)
+CREATE TABLE sessions (
+    id            SERIAL PRIMARY KEY,
+    movie_id      INTEGER       NOT NULL REFERENCES movies(id) ON DELETE CASCADE,
+    hall          VARCHAR(50)   NOT NULL,
+    session_date  DATE          NOT NULL,
+    start_time    VARCHAR(10)   NOT NULL,
+    price         NUMERIC(8,2)  NOT NULL CHECK (price > 0)
+);
+
+INSERT INTO movies (title, genre, duration, rating, release_date) VALUES
+    ('Интерстеллар',         'Фантастика',  169, 8.6, '2014-11-06'),
+    ('Начало',               'Фантастика',  148, 8.8, '2010-07-16'),
+    ('Джокер',               'Драма',       122, 8.4, '2019-10-03'),
+    ('Дюна',                 'Фантастика',  155, 8.0, '2021-10-21'),
+    ('Паразиты',             'Триллер',     132, 8.5, '2019-05-30'),
+    ('Однажды в Голливуде',  'Драма',       161, 7.6, '2019-07-26'),
+    ('1917',                 'Военный',     119, 8.3, '2019-12-25'),
+    ('Достать ножи',         'Детектив',    130, 7.9, '2019-11-27'),
+    ('Мстители: Финал',      'Боевик',      181, 8.4, '2019-04-26'),
+    ('Зеленая книга',        'Драма',       130, 8.2, '2018-11-16');
+
+INSERT INTO sessions (movie_id, hall, session_date, start_time, price) VALUES
+    (1, 'Зал 1', '2024-06-01', '10:00', 350.00),
+    (1, 'Зал 2', '2024-06-01', '14:30', 400.00),
+    (1, 'Зал 1', '2024-06-02', '18:00', 450.00),
+    (2, 'Зал 3', '2024-06-01', '11:00', 370.00),
+    (2, 'Зал 1', '2024-06-02', '15:00', 420.00),
+    (3, 'Зал 2', '2024-06-01', '19:30', 500.00),
+    (3, 'Зал 3', '2024-06-02', '20:00', 480.00),
+    (4, 'Зал 1', '2024-06-03', '13:00', 430.00),
+    (4, 'Зал 2', '2024-06-03', '17:30', 460.00),
+    (5, 'Зал 3', '2024-06-01', '16:00', 390.00),
+    (5, 'Зал 1', '2024-06-04', '20:30', 510.00),
+    (6, 'Зал 2', '2024-06-02', '12:00', 360.00),
+    (7, 'Зал 3', '2024-06-03', '11:30', 380.00),
+    (7, 'Зал 1', '2024-06-04', '16:30', 440.00),
+    (8, 'Зал 2', '2024-06-04', '19:00', 470.00),
+    (9, 'Зал 3', '2024-06-05', '14:00', 520.00),
+    (9, 'Зал 1', '2024-06-05', '18:30', 550.00),
+    (10,'Зал 2', '2024-06-05', '10:30', 340.00),
+    (10,'Зал 3', '2024-06-06', '15:30', 410.00),
+    (6, 'Зал 1', '2024-06-06', '21:00', 490.00);
