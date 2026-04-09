@@ -1,3 +1,7 @@
-task.pdf
+task/
 
 **/node_modules/**
+**/package.lock
+**/dist
+
+**/.env
