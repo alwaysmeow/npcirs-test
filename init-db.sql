@@ -1,7 +1,3 @@
-DROP DATABASE IF EXISTS npcirs_test;
-CREATE DATABASE npcirs_test;
-\connect npcirs_test
-
 DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS movies;
 
