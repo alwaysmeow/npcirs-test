@@ -3,6 +3,7 @@ import MoviesController from '../controllers/moviesController';
 
 const router = Router();
 
+router.get('/count', MoviesController.getCount);
 router.get('/', MoviesController.getAll);
 router.get('/:id', MoviesController.getById);
 router.post('/', MoviesController.create);

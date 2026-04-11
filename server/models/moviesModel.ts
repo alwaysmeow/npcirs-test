@@ -12,6 +12,12 @@ class MoviesModel {
     return db.any<MovieRow>(query, [limit, offset]);
   }
 
+  static async getCount(): Promise<number> {
+    const query = `SELECT COUNT(*)::int AS count FROM movies`;
+    const result = await db.one<{ count: number }>(query);
+    return result.count;
+  }
+
   static async getById(id: number): Promise<MovieRow | null> {
     const query = `
       SELECT id, title, genre, duration, rating, release_date

@@ -65,25 +65,31 @@ const contained = {
 
   primary: {
     backgroundColor: info.main,
+    color: white.main,
 
     "&:hover": {
       backgroundColor: info.main,
+      color: white.main,
     },
 
     "&:focus:not(:hover)": {
       backgroundColor: info.focus,
+      color: white.main,
     },
   },
 
   secondary: {
     backgroundColor: secondary.main,
+    color: white.main,
 
     "&:hover": {
       backgroundColor: secondary.main,
+      color: white.main,
     },
 
     "&:focus:not(:hover)": {
       backgroundColor: secondary.focus,
+      color: white.main,
     },
   },
 };
